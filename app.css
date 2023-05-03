@@ -1,0 +1,812 @@
+/* CSS Reset */
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* ------------------------------------------------------ */
+/* Custom CSS */
+
+body {
+    width: calc(100% - 4px);
+}
+
+#container {
+    width: 100%;
+    min-width: 1200px;
+    position: absolute;
+}
+
+#map {
+    width: 90%;
+    padding-bottom: 90%;
+    top: 100;
+    left: 50%;
+    transform: translate(-50%, 0);
+    position: relative;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.ring {
+    border: 2px solid black;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.cavern {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: black;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+}
+
+.line {
+    color: grey;
+    height: 5px;
+    background-color: grey;
+    position: absolute;
+    transform-origin: center left;
+    z-index: 1;
+}
+
+/* example line styling applied by JS */
+/* .point-a {
+    width: 25%;
+    left: 35%;
+    top: 30%;
+    transform: rotate(53deg);
+} */
+
+/* Individual Element Styling */
+
+#ring-1 {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#ring-2 {
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+}
+
+#ring-3 {
+    top: 20%;
+    left: 20%;
+    width: 60%;
+    height: 60%;
+}
+
+#ring-4 {
+    top: 30%;
+    left: 30%;
+    width: 40%;
+    height: 40%;
+}
+
+#ring-5 {
+    top: 40%;
+    left: 40%;
+    width: 20%;
+    height: 20%;
+}
+
+.cavern[data-item-id="95"] {
+    /* The Surface */
+    left: 0%;
+    top: 0%;
+}
+
+.cavern[data-item-id="4"] {
+    /* The Salt Mines */
+    left: 31%;
+    top: 92%;
+}
+
+.cavern[data-item-id="5"] {
+    /* Rock Mite Satellite Nest */
+    left: 11%;
+    top: 73%;
+}
+
+.cavern[data-item-id="6"] {
+    /* Rock Mite Satellite Nest */
+    left: 11%;
+    top: 25%;
+}
+
+.cavern[data-item-id="7"] {
+    /* Rock Mite Satellite Nest */
+    left: 86%;
+    top: 81%;
+}
+
+.cavern[data-item-id="8"] {
+    /* Eastern Mines */
+    left: 40%;
+    top: 89%;
+}
+
+.cavern[data-item-id="9"] {
+    /* Gary’s Pub */
+    left: 39%;
+    top: 9%;
+}
+
+.cavern[data-item-id="10"] {
+    /* The Tinkerers */
+    left: 33%;
+    top: 8%;
+}
+
+.cavern[data-item-id="11"] {
+    /* The Farmers */
+    left: 37%;
+    top: 4.5%;
+}
+
+.cavern[data-item-id="12"] {
+    /* The Warriors */
+    left: 43%;
+    top: 5%;
+}
+
+.cavern[data-item-id="13"] {
+    /* The Caustic Pits */
+    left: 8%;
+    top: 42%;
+}
+
+.cavern[data-item-id="14"] {
+    /* Goblin Village */
+    left: 3%;
+    top: 48%;
+}
+
+.cavern[data-item-id="15"] {
+    /* Portal to the Abyss */
+    left: 9%;
+    top: 65%;
+}
+
+.cavern[data-item-id="16"] {
+    /* [Undeclared] */
+    left: 15%;
+    top: 82%;
+}
+
+.cavern[data-item-id="17"] {
+    /* [Undeclared] */
+    left: 21%;
+    top: 16%;
+}
+
+.cavern[data-item-id="18"] {
+    /* [Undeclared] */
+    left: 27%;
+    top: 12%;
+}
+
+.cavern[data-item-id="19"] {
+    /* Portal to the Abyss */
+    left: 63%;
+    top: 93%;
+}
+
+.cavern[data-item-id="20"] {
+    /* Portal to the Abyss */
+    left: 84%;
+    top: 21%;
+}
+
+.cavern[data-item-id="21"] {
+    /* Goblin Village */
+    left: 51%;
+    top: 5%;
+}
+
+.cavern[data-item-id="22"] {
+    /* Goblin Village */
+    left: 81%;
+    top: 15%;
+}
+
+.cavern[data-item-id="23"] {
+    /* Goblin Village */
+    left: 94%;
+    top: 54%;
+}
+
+.cavern[data-item-id="24"] {
+    /* Goblin Village */
+    left: 79%;
+    top: 87%;
+}
+
+.cavern[data-item-id="25"] {
+    /* Goblin Village */
+    left: 55%;
+    top: 96%;
+}
+
+.cavern[data-item-id="26"] {
+    /* [Undeclared] */
+    left: 43%;
+    top: 96%;
+}
+
+.cavern[data-item-id="27"] {
+    /* [Undeclared] */
+    left: 71%;
+    top: 90%;
+}
+
+.cavern[data-item-id="28"] {
+    /* [Undeclared] */
+    left: 91%;
+    top: 67%;
+}
+
+.cavern[data-item-id="29"] {
+    /* [Undeclared] */
+    left: 97%;
+    top: 59%;
+}
+
+.cavern[data-item-id="30"] {
+    /* [Undeclared] */
+    left: 95%;
+    top: 47%;
+}
+
+.cavern[data-item-id="31"] {
+    /* [Undeclared] */
+    left: 91%;
+    top: 31%;
+}
+
+.cavern[data-item-id="32"] {
+    /* [Undeclared] */
+    left: 69%;
+    top: 10%;
+}
+
+.cavern[data-item-id="33"] {
+    /* [Undeclared] */
+    left: 60%;
+    top: 6%;
+}
+
+.cavern[data-item-id="97"] {
+    /* This cavern was added to the db out of order */
+    /* The Pressure Chamber */
+    left: 85%;
+    top: 76%;
+}
+
+.cavern[data-item-id="96"] {
+    /* This cavern was added to the db out of order */
+    /* [Undeclared] */
+    left: 71.5%;
+    top: 24.5%;
+}
+
+.cavern[data-item-id="34"] {
+    /* Darkstone */
+    left: 38%;
+    top: 83%;
+}
+
+.cavern[data-item-id="35"] {
+    /* The Ruins of Redharbor */
+    left: 71%;
+    top: 20%;
+}
+
+.cavern[data-item-id="36"] {
+    /* Rock Mite Satellite Nest */
+    left: 48%;
+    top: 83%;
+}
+
+.cavern[data-item-id="37"] {
+    /* Rock Mite Satellite Nest */
+    left: 19%;
+    top: 65%;
+}
+
+.cavern[data-item-id="38"] {
+    /* Rock Mite Satellite Nest */
+    left: 15%;
+    top: 46%;
+}
+
+.cavern[data-item-id="39"] {
+    /* Rock Mite Satellite Nest */
+    left: 60%;
+    top: 16%;
+}
+
+.cavern[data-item-id="40"] {
+    /* Rock Mite Satellite Nest */
+    left: 84%;
+    top: 60%;
+}
+
+.cavern[data-item-id="41"] {
+    /* Rock Mite Satellite Nest */
+    left: 69%;
+    top: 80%;
+}
+
+.cavern[data-item-id="42"] {
+    /* Western Mines */
+    left: 31%;
+    top: 78%;
+}
+
+.cavern[data-item-id="43"] {
+    /* Svirfneblin Caravan */
+    left: 33%;
+    top: 22%;
+}
+
+.cavern[data-item-id="44"] {
+    /* The Lorekeepers */
+    left: 45%;
+    top: 13%;
+}
+
+.cavern[data-item-id="45"] {
+    /* The Builders */
+    left: 40%;
+    top: 14%;
+}
+
+.cavern[data-item-id="46"] {
+    /* Quaggoth Raiding Party */
+    left: 34%;
+    top: 17%;
+}
+
+.cavern[data-item-id="47"] {
+    /* Flumph Market */
+    left: 28%;
+    top: 21%;
+}
+
+.cavern[data-item-id="48"] {
+    /* Portal to the Abyss */
+    left: 48%;
+    top: 17%;
+}
+
+.cavern[data-item-id="49"] {
+    /* Earth Genasi Settlement */
+    left: 16%;
+    top: 58%;
+}
+
+.cavern[data-item-id="50"] {
+    /* Giant Spider Colony */
+    left: 23%;
+    top: 28%;
+}
+
+.cavern[data-item-id="51"] {
+    /* Elendaar */
+    left: 83%;
+    top: 40%;
+}
+
+.cavern[data-item-id="52"] {
+    /* The Fungal Forests */
+    left: 87%;
+    top: 44%;
+}
+
+.cavern[data-item-id="53"] {
+    /* Eastern Drow Outpost */
+    left: 85%;
+    top: 54%;
+}
+
+.cavern[data-item-id="54"] {
+    /* Western Drow Outpost */
+    left: 78%;
+    top: 28%;
+}
+
+.cavern[data-item-id="55"] {
+    /* Tomb of Prince Durin Oreforge */
+    left: 57%;
+    top: 85%;
+}
+
+.cavern[data-item-id="56"] {
+    /* The Walkways */
+    left: 25%;
+    top: 72%;
+}
+
+.cavern[data-item-id="57"] {
+    /* Crypt of Azonoth */
+    left: 75%;
+    top: 75%;
+}
+
+.cavern[data-item-id="58"] {
+    /* Rock Mite Satellite Nest */
+    left: 68%;
+    top: 68%;
+}
+
+.cavern[data-item-id="59"] {
+    /* Rock Mite Satellite Nest */
+    left: 33%;
+    top: 69%;
+}
+
+.cavern[data-item-id="60"] {
+    /* Rock Mite Satellite Nest */
+    left: 25%;
+    top: 50%;
+}
+
+.cavern[data-item-id="61"] {
+    /* Rock Mite Satellite Nest */
+    left: 35%;
+    top: 30%;
+}
+
+.cavern[data-item-id="62"] {
+    /* The Reservoir */
+    left: 62%;
+    top: 72%;
+}
+
+.cavern[data-item-id="63"] {
+    /* Ruins of Azraga’ool’s Fortress */
+    left: 31%;
+    top: 34%;
+}
+
+.cavern[data-item-id="64"] {
+    /* The Lair of Bentley the Barely Sane */
+    left: 27%;
+    top: 36%;
+}
+
+.cavern[data-item-id="65"] {
+    /* Medusa's Cavern */
+    left: 30%;
+    top: 39%;
+}
+
+.cavern[data-item-id="66"] {
+    /* Dwarven Outpost */
+    left: 47%;
+    top: 77%;
+}
+
+.cavern[data-item-id="67"] {
+    /* Ironspine, Dwarven Village */
+    left: 56%;
+    top: 77%;
+}
+
+.cavern[data-item-id="68"] {
+    /* Portal to the Abyss */
+    left: 74%;
+    top: 57%;
+}
+
+.cavern[data-item-id="69"] {
+    /* No Man’s Land */
+    left: 40%;
+    top: 70.5%;
+}
+
+.cavern[data-item-id="70"] {
+    /* Kobold Colony */
+    left: 65%;
+    top: 31%;
+}
+
+.cavern[data-item-id="71"] {
+    /* Kobold Colony */
+    left: 72%;
+    top: 34%;
+}
+
+.cavern[data-item-id="72"] {
+    /* Kobold Colony */
+    left: 72%;
+    top: 40%;
+}
+
+.cavern[data-item-id="73"] {
+    /* Lower Drow Outpost */
+    left: 76%;
+    top: 44%;
+}
+
+.cavern[data-item-id="74"] {
+    /* Resting Place of Ironfang */
+    left: 27%;
+    top: 61%;
+}
+
+.cavern[data-item-id="75"] {
+    /* The Lost Mines */
+    left: 52%;
+    top: 27%;
+}
+
+.cavern[data-item-id="76"] {
+    /* Oxzigaal Bazaar */
+    left: 36.5%;
+    top: 46%;
+}
+
+.cavern[data-item-id="77"] {
+    /* Kyzzinid’s Lair */
+    left: 61.5%;
+    top: 41%;
+}
+
+.cavern[data-item-id="78"] {
+    /* Rock Mite Satellite Nest */
+    left: 64%;
+    top: 55%;
+}
+
+.cavern[data-item-id="79"] {
+    /* Rock Mite Satellite Nest */
+    left: 53%;
+    top: 64%;
+}
+
+.cavern[data-item-id="80"] {
+    /* Rock Mite Satellite Nest */
+    left: 47%;
+    top: 37%;
+}
+
+.cavern[data-item-id="81"] {
+    /* The Runoff */
+    left: 63%;
+    top: 61%;
+}
+
+.cavern[data-item-id="82"] {
+    /* Mind Flayer Colony */
+    left: 41%;
+    top: 60%;
+}
+
+.cavern[data-item-id="83"] {
+    /* Mind Flayer Colony */
+    left: 65%;
+    top: 48%;
+}
+
+.cavern[data-item-id="84"] {
+    /* Dutt (Kobold Capital) */
+    left: 59%;
+    top: 37%;
+}
+
+.cavern[data-item-id="85"] {
+    /* Portal to the Abyss */
+    left: 35%;
+    top: 57%;
+}
+
+.cavern[data-item-id="86"] {
+    /* The Ruins of Broadforge */
+    left: 53%;
+    top: 37%;
+}
+
+.cavern[data-item-id="87"] {
+    /* The Crystal Grotto */
+    left: 47%;
+    top: 67%;
+}
+
+.cavern[data-item-id="88"] {
+    /* Rock Mite Hive */
+    left: 55%;
+    top: 55%;
+}
+
+.cavern[data-item-id="89"] {
+    /* The Magma Wells */
+    left: 47%;
+    top: 55%;
+}
+
+.cavern[data-item-id="90"] {
+    /* Gresdayokt */
+    left: 44.5%;
+    top: 50%;
+}
+
+.cavern[data-item-id="91"] {
+    /* Greater Portal to the Abyss */
+    left: 47%;
+    top: 45%;
+}
+
+.cavern[data-item-id="92"] {
+    /* The Labyrinth */
+    left: 53%;
+    top: 45%;
+}
+
+.cavern[data-item-id="93"] {
+    /* Silver Dragon’s Lair */
+    left: 55.5%;
+    top: 50%;
+}
+
+.cavern[data-item-id="94"] {
+    /* The Core */
+    left: 50%;
+    top: 50%;
+}
+
+/* JS Classes */
+
+.d-none {
+    display: none;
+}
+
+.activeCavern {
+    background-color: green;
+}
+
+.redLink {
+    color: red;
+    background-color: red;
+    z-index: 3;
+}
