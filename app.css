@@ -163,6 +163,7 @@ body {
     border: 2px solid black;
     border-radius: 50%;
     position: absolute;
+    z-index: 4;
 }
 
 .cavern {
@@ -176,7 +177,7 @@ body {
 }
 
 .line {
-    color: grey;
+    color: #808080;
     height: 5px;
     background-color: grey;
     position: absolute;
@@ -806,7 +807,6 @@ body {
 }
 
 .redLink {
-    color: red;
-    background-color: red;
+    background-color: #ff0000;
     z-index: 3;
 }
