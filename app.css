@@ -146,6 +146,10 @@ body {
     width: 100%;
     min-width: 1200px;
     position: absolute;
+    background-image: url(./images/parchment.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Libre Baskerville', serif;
 }
 
 #map {
@@ -170,10 +174,22 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: black;
+    background-color: rgb(63, 63, 63);
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.5);
     position: fixed;
     transform: translate(-50%, -50%);
     z-index: 5;
+    white-space: nowrap;
+    color: red;
+    text-shadow: 3px 4px 6px rgb(97, 97, 97), 0 0 0 #000, 1px 4px 6px rgb(97, 97, 97);
+    text-indent: 42px;
+    line-height: 1.2;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+.surface {
+    display: none;
 }
 
 .line {
@@ -231,9 +247,39 @@ body {
 }
 
 .cavern[data-item-id="95"] {
-    /* The Surface */
-    left: 0%;
+    /* The Surface from 1-3 */
+    left: 5%;
+    top: 20%;
+}
+
+.cavern[data-item-id="98"] {
+    /* The Surface from 1-8 */
+    left: 35%;
     top: 0%;
+}
+
+.cavern[data-item-id="99"] {
+    /* The Surface from 1-19 */
+    left: 87%;
+    top: 9%;
+}
+
+.cavern[data-item-id="100"] {
+    /* The Surface from 1-31 */
+    left: 95%;
+    top: 84%;
+}
+
+.cavern[data-item-id="101"] {
+    /* The Surface from 1-21 */
+    left: 86%;
+    top: 94%;
+}
+
+.cavern[data-item-id="102"] {
+    /* The Surface from 1-1 */
+    left: 26%;
+    top: 100%;
 }
 
 .cavern[data-item-id="4"] {
@@ -756,8 +802,8 @@ body {
 
 .cavern[data-item-id="88"] {
     /* Rock Mite Hive */
-    left: 55%;
-    top: 55%;
+    left: 54.5%;
+    top: 56.5%;
 }
 
 .cavern[data-item-id="89"] {
@@ -802,11 +848,19 @@ body {
     display: none;
 }
 
-.activeCavern {
-    background-color: green;
-}
-
 .redLink {
     background-color: #ff0000;
     z-index: 3;
+}
+
+.redText {
+    color: red;
+}
+
+.current {
+    background-color: blue;
+}
+
+.activeCavern {
+    background-color: maroon;
 }

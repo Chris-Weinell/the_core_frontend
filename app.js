@@ -56,27 +56,27 @@ async function setUpLinks() {
     function applyGradient(linkDiv, line, color = '#808080') {
         if (line.width >= 20) {
             if (!line.cavernA.found && line.cavernB.found) {
-                linkDiv.style.background = `linear-gradient(to left, ${color}, #ffffff 25%)`;
+                linkDiv.style.background = `linear-gradient(to left, ${color}, transparent 25%)`;
             } else if (line.cavernA.found && !line.cavernB.found) {
-                linkDiv.style.background = `linear-gradient(to right, ${color}, #ffffff 25%)`;
+                linkDiv.style.background = `linear-gradient(to right, ${color}, transparent 25%)`;
             }
         } else if (line.width >= 15 && line.width < 20) {
             if (!line.cavernA.found && line.cavernB.found) {
-                linkDiv.style.background = `linear-gradient(to left, ${color}, #ffffff 50%)`;
+                linkDiv.style.background = `linear-gradient(to left, ${color}, transparent 50%)`;
             } else if (line.cavernA.found && !line.cavernB.found) {
-                linkDiv.style.background = `linear-gradient(to right, ${color}, #ffffff 50%)`;
+                linkDiv.style.background = `linear-gradient(to right, ${color}, transparent 50%)`;
             }
         } else if (line.width >= 10 && line.width < 15) {
             if (!line.cavernA.found && line.cavernB.found) {
-                linkDiv.style.background = `linear-gradient(to left, ${color}, #ffffff 75%)`;
+                linkDiv.style.background = `linear-gradient(to left, ${color}, transparent 75%)`;
             } else if (line.cavernA.found && !line.cavernB.found) {
-                linkDiv.style.background = `linear-gradient(to right, ${color}, #ffffff 75%)`;
+                linkDiv.style.background = `linear-gradient(to right, ${color}, transparent 75%)`;
             }
         } else {
             if (!line.cavernA.found && line.cavernB.found) {
-                linkDiv.style.background = `linear-gradient(to left, ${color}, #ffffff)`;
+                linkDiv.style.background = `linear-gradient(to left, ${color}, transparent)`;
             } else if (line.cavernA.found && !line.cavernB.found) {
-                linkDiv.style.background = `linear-gradient(to right, ${color}, #ffffff)`;
+                linkDiv.style.background = `linear-gradient(to right, ${color}, transparent)`;
             }
         }
     }
@@ -84,6 +84,7 @@ async function setUpLinks() {
     try {
         let allLinks = await axios.get(`http://127.0.0.1:8000/api/location/links/`);
         let foundLinks = allLinks.data.filter((item) => item.found);
+        // let foundLinks = allLinks.data
 
         for (let link of foundLinks) {
             const cavernA = await axiosRequestData('caverns', link.caverns[0]);
@@ -100,7 +101,6 @@ async function setUpLinks() {
             linkDiv.style.top = `${line.pointA.top}%`;
             linkDiv.style.width = `${line.width}%`;
             linkDiv.style.transform = `rotate(${line.radians}rad)`;
-            console.log(line.width)
             applyGradient(linkDiv, line);
             //////////////////
 
@@ -137,10 +137,15 @@ async function setUpCaverns() {
         const allCaverns = await axios.get(`http://127.0.0.1:8000/api/location/caverns/`);
         const foundCaverns = allCaverns.data.filter((item) => item.found);
         const foundCavernIds = foundCaverns.map((item) => item['id']);
-        caverns.forEach((cavern) => {
+        const currentCaverns = allCaverns.data.filter((item) => item.current);
+        const currentCavernIds = currentCaverns.map((item) => item['id']);
+        caverns.forEach(async (cavern) => {
             let cavernID = cavern.dataset.itemId;
             if (foundCavernIds.includes(parseInt(cavernID))) {
                 cavern.classList.toggle('d-none');
+            }
+            if (currentCavernIds.includes(parseInt(cavernID))) {
+                cavern.classList.add('current');
             }
         })
 
@@ -169,21 +174,18 @@ async function setUpPage() {
 
 caverns.forEach((cavern) => {
     cavern.addEventListener('click', async (e) => {
-        e.stopPropagation();
         let cavernId = cavern.dataset.itemId;
         let cavernData = await axiosRequestData('caverns', cavernId);
+        cavern.classList.toggle('activeCavern')
+        if (cavern.innerText) {
+            cavern.innerText = '';
+            cavern.style.zIndex = '5';
+        } else {
+            cavern.innerText = `${cavernData.name}`;
+            cavern.style.zIndex = '10';
+        }
         console.log(cavernData);
 
-        cavern.classList.toggle('activeCavern')
-    })
-})
-
-links.forEach((link) => {
-    link.addEventListener('click', async (e) => {
-        e.stopPropagation();
-        let linkId = link.dataset.itemId;
-        let linkData = await axiosRequestData('links', linkId);
-        console.log(linkData);
     })
 })
 
