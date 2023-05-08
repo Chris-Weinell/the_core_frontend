@@ -105,6 +105,15 @@ async function setUpLinks() {
             //////////////////
 
             //////////////////
+            // Creates Span in linDiv containing travel duration text
+            let linkSpan = document.createElement('span');
+            linkSpan.classList.add('link-span');
+            linkSpan.classList.add('d-none');
+            linkSpan.innerText = `${link.travel_duration} Hrs`;
+            linkDiv.append(linkSpan);
+            //////////////////
+
+            //////////////////
             // Adds Mutation Observer to Links to apply new styling if linked cavern is active
             function hasClass(element, className) {
                 return element.classList.contains(className);
@@ -160,6 +169,44 @@ async function setUpCaverns() {
     }
 }
 
+async function hideLoadingScreen() {
+    const loadingScreen = document.querySelector('#loading-screen');
+    loadingScreen.classList.add('d-none');
+}
+
+async function addEventListeners() {
+    caverns.forEach((cavern) => {
+        cavern.addEventListener('click', async (e) => {
+            let cavernId = cavern.dataset.itemId;
+            let cavernData = await axiosRequestData('caverns', cavernId);
+            cavern.classList.toggle('activeCavern')
+            if (cavern.innerText) {
+                cavern.innerText = '';
+                cavern.style.zIndex = '5';
+            } else {
+                cavern.innerText = `${cavernData.name}`;
+                cavern.style.zIndex = '9';
+            }
+            console.log(cavernData);
+
+        })
+    })
+
+    links.forEach(async (link) => {
+        let linkId = link.dataset.itemId;
+        let linkData = await axiosRequestData('links', linkId);
+        let cavernA = await axiosRequestData('caverns', linkData.caverns[0])
+        let cavernB = await axiosRequestData('caverns', linkData.caverns[1])
+        if (cavernA.found && cavernB.found) {
+            link.addEventListener('click', async (e) => {
+                let linkSpan = link.querySelector('span');
+                linkSpan.classList.toggle('d-none');
+                link.classList.toggle('bring-to-front');
+            })
+        }
+    })
+}
+
 async function setUpPage() {
     // All page elements have to be hidden before setUpLinks runs
     // or the displayed caverns will have their offset returned in
@@ -168,26 +215,10 @@ async function setUpPage() {
     // positions of the Link lines.
     await hideDefinedElements()
         .then(await setUpLinks())
-        .then(await setUpCaverns());
+        .then(await setUpCaverns())
+        .then(await addEventListeners())
+        .then(await hideLoadingScreen());
 }
-
-
-caverns.forEach((cavern) => {
-    cavern.addEventListener('click', async (e) => {
-        let cavernId = cavern.dataset.itemId;
-        let cavernData = await axiosRequestData('caverns', cavernId);
-        cavern.classList.toggle('activeCavern')
-        if (cavern.innerText) {
-            cavern.innerText = '';
-            cavern.style.zIndex = '5';
-        } else {
-            cavern.innerText = `${cavernData.name}`;
-            cavern.style.zIndex = '10';
-        }
-        console.log(cavernData);
-
-    })
-})
 
 setUpPage()
 
