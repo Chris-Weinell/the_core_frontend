@@ -1,10 +1,19 @@
+const dev = false;
+
+let requestAddress;
+if (dev) {
+    requestAddress = 'http://127.0.0.1:8000/api/location/';
+} else {
+    requestAddress = 'http://ec2-18-118-225-64.us-east-2.compute.amazonaws.com/api/location/';
+}
+
 const caverns = document.querySelectorAll('.cavern');
 const rings = document.querySelectorAll('.ring');
 const links = document.querySelectorAll('.link');
 
 const axiosRequestData = async (api, id) => {
     try {
-        const res = await axios.get(`http://127.0.0.1:8000/api/location/${api}/${id}/`);
+        const res = await axios.get(`${requestAddress}${api}/${id}/`);
         return res.data;
     } catch (e) {
         return e;
@@ -82,7 +91,7 @@ async function setUpLinks() {
     }
 
     try {
-        let allLinks = await axios.get(`http://127.0.0.1:8000/api/location/links/`);
+        let allLinks = await axios.get(`${requestAddress}links/`);
         let foundLinks = allLinks.data.filter((item) => item.found);
         // let foundLinks = allLinks.data
 
@@ -143,7 +152,7 @@ async function setUpLinks() {
 
 async function setUpCaverns() {
     try {
-        const allCaverns = await axios.get(`http://127.0.0.1:8000/api/location/caverns/`);
+        const allCaverns = await axios.get(`${requestAddress}caverns/`);
         const foundCaverns = allCaverns.data.filter((item) => item.found);
         const foundCavernIds = foundCaverns.map((item) => item['id']);
         const currentCaverns = allCaverns.data.filter((item) => item.current);
@@ -187,8 +196,6 @@ async function addEventListeners() {
                 cavern.innerText = `${cavernData.name}`;
                 cavern.style.zIndex = '9';
             }
-            console.log(cavernData);
-
         })
     })
 
