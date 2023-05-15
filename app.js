@@ -1,11 +1,4 @@
-const dev = false;
-
-let requestAddress;
-if (dev) {
-    requestAddress = 'http://127.0.0.1:8000/api/location/';
-} else {
-    requestAddress = 'http://ec2-18-118-225-64.us-east-2.compute.amazonaws.com/api/location/';
-}
+let requestAddress = 'https://www.shattered-world-api.link/api/location/';
 
 const caverns = document.querySelectorAll('.cavern');
 const rings = document.querySelectorAll('.ring');
@@ -14,6 +7,7 @@ const links = document.querySelectorAll('.link');
 const axiosRequestData = async (api, id) => {
     try {
         const res = await axios.get(`${requestAddress}${api}/${id}/`);
+        console.log(res.data);
         return res.data;
     } catch (e) {
         return e;
@@ -93,7 +87,6 @@ async function setUpLinks() {
     try {
         let allLinks = await axios.get(`${requestAddress}links/`);
         let foundLinks = allLinks.data.filter((item) => item.found);
-        // let foundLinks = allLinks.data
 
         for (let link of foundLinks) {
             const cavernA = await axiosRequestData('caverns', link.caverns[0]);
@@ -114,7 +107,7 @@ async function setUpLinks() {
             //////////////////
 
             //////////////////
-            // Creates Span in linDiv containing travel duration text
+            // Creates Span in linkDiv containing travel duration text
             let linkSpan = document.createElement('span');
             linkSpan.classList.add('link-span');
             linkSpan.classList.add('d-none');
@@ -220,11 +213,11 @@ async function setUpPage() {
     // pixels and the hidden caverns will have their offset returned
     // in percentages.  These offsets are used to determine the
     // positions of the Link lines.
-    await hideDefinedElements()
-        .then(await setUpLinks())
-        .then(await setUpCaverns())
-        .then(await addEventListeners())
-        .then(await hideLoadingScreen());
+    await hideDefinedElements();
+    await setUpLinks();
+    await setUpCaverns();
+    await addEventListeners();
+    await hideLoadingScreen();
 }
 
 setUpPage()
