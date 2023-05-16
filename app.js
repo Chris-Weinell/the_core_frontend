@@ -1,15 +1,11 @@
+let requestAddress = 'https://www.shattered-world-api.link/api/location/';
+
 const caverns = document.querySelectorAll('.cavern');
 const rings = document.querySelectorAll('.ring');
 const links = document.querySelectorAll('.link');
 
-const axiosRequestData = async (api, id) => {
-    try {
-        const res = await axios.get(`http://127.0.0.1:8000/api/location/${api}/${id}/`);
-        return res.data;
-    } catch (e) {
-        return e;
-    }
-}
+let allCavernData
+let allLinkData
 
 async function hideDefinedElements() {
     for (let ring of rings) {
@@ -18,6 +14,13 @@ async function hideDefinedElements() {
     for (let cavern of caverns) {
         cavern.classList.add('d-none');
     }
+}
+
+async function buildData() {
+    const allCaverns = await axios.get(`${requestAddress}caverns/`);
+    allCavernData = allCaverns.data;
+    const allLinks = await axios.get(`${requestAddress}links/`);
+    allLinkData = allLinks.data;
 }
 
 async function setUpLinks() {
@@ -82,13 +85,11 @@ async function setUpLinks() {
     }
 
     try {
-        let allLinks = await axios.get(`http://127.0.0.1:8000/api/location/links/`);
-        let foundLinks = allLinks.data.filter((item) => item.found);
-        // let foundLinks = allLinks.data
+        const foundLinks = allLinkData.filter((item) => item.found);
 
         for (let link of foundLinks) {
-            const cavernA = await axiosRequestData('caverns', link.caverns[0]);
-            const cavernB = await axiosRequestData('caverns', link.caverns[1]);
+            const cavernA = allCavernData.filter((cavern) => cavern.id === link.caverns[0])[0];
+            const cavernB = allCavernData.filter((cavern) => cavern.id === link.caverns[1])[0];
             const connectionA = document.querySelector(`.cavern[data-item-id="${link.caverns[0]}"]`);
             const connectionB = document.querySelector(`.cavern[data-item-id="${link.caverns[1]}"]`);
             const line = new Line(cavernA, cavernB, connectionA, connectionB);
@@ -101,11 +102,12 @@ async function setUpLinks() {
             linkDiv.style.top = `${line.pointA.top}%`;
             linkDiv.style.width = `${line.width}%`;
             linkDiv.style.transform = `rotate(${line.radians}rad)`;
+            linkDiv.style.marginTop = '-5px';
             applyGradient(linkDiv, line);
             //////////////////
 
             //////////////////
-            // Creates Span in linDiv containing travel duration text
+            // Creates Span in linkDiv containing travel duration text
             let linkSpan = document.createElement('span');
             linkSpan.classList.add('link-span');
             linkSpan.classList.add('d-none');
@@ -143,10 +145,9 @@ async function setUpLinks() {
 
 async function setUpCaverns() {
     try {
-        const allCaverns = await axios.get(`http://127.0.0.1:8000/api/location/caverns/`);
-        const foundCaverns = allCaverns.data.filter((item) => item.found);
+        const foundCaverns = allCavernData.filter((item) => item.found);
         const foundCavernIds = foundCaverns.map((item) => item['id']);
-        const currentCaverns = allCaverns.data.filter((item) => item.current);
+        const currentCaverns = allCavernData.filter((item) => item.current);
         const currentCavernIds = currentCaverns.map((item) => item['id']);
         caverns.forEach(async (cavern) => {
             let cavernID = cavern.dataset.itemId;
@@ -161,7 +162,7 @@ async function setUpCaverns() {
         const foundLayers = [...new Set(foundCaverns.map((item) => item['layer']))];
         for (let i = 1; i <= 5; i++) {
             if (foundLayers.includes(i)) {
-                document.querySelector(`#ring-${i}`).classList.toggle('d-none')
+                document.querySelector(`#ring-${i}`).classList.toggle('d-none');
             }
         }
     } catch (e) {
@@ -177,9 +178,9 @@ async function hideLoadingScreen() {
 async function addEventListeners() {
     caverns.forEach((cavern) => {
         cavern.addEventListener('click', async (e) => {
-            let cavernId = cavern.dataset.itemId;
-            let cavernData = await axiosRequestData('caverns', cavernId);
-            cavern.classList.toggle('activeCavern')
+            let cavernId = parseInt(cavern.dataset.itemId);
+            let cavernData = allCavernData.filter((cavern) => cavern.id === cavernId)[0];
+            cavern.classList.toggle('activeCavern');
             if (cavern.innerText) {
                 cavern.innerText = '';
                 cavern.style.zIndex = '5';
@@ -187,16 +188,14 @@ async function addEventListeners() {
                 cavern.innerText = `${cavernData.name}`;
                 cavern.style.zIndex = '9';
             }
-            console.log(cavernData);
-
         })
     })
 
     links.forEach(async (link) => {
-        let linkId = link.dataset.itemId;
-        let linkData = await axiosRequestData('links', linkId);
-        let cavernA = await axiosRequestData('caverns', linkData.caverns[0])
-        let cavernB = await axiosRequestData('caverns', linkData.caverns[1])
+        let linkId = parseInt(link.dataset.itemId);
+        let linkData = allLinkData.filter((link) => link.id === linkId)[0];
+        let cavernA = allCavernData.filter((cavern) => cavern.id === linkData.caverns[0])[0];
+        let cavernB = allCavernData.filter((cavern) => cavern.id === linkData.caverns[1])[0];
         if (cavernA.found && cavernB.found) {
             link.addEventListener('click', async (e) => {
                 let linkSpan = link.querySelector('span');
@@ -213,11 +212,12 @@ async function setUpPage() {
     // pixels and the hidden caverns will have their offset returned
     // in percentages.  These offsets are used to determine the
     // positions of the Link lines.
-    await hideDefinedElements()
-        .then(await setUpLinks())
-        .then(await setUpCaverns())
-        .then(await addEventListeners())
-        .then(await hideLoadingScreen());
+    await hideDefinedElements();
+    await buildData();
+    await setUpLinks();
+    await setUpCaverns();
+    await addEventListeners();
+    await hideLoadingScreen();
 }
 
 setUpPage()

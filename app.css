@@ -226,7 +226,7 @@ body {
     transform: translate(-50%, -50%);
     z-index: 5;
     white-space: nowrap;
-    color: red;
+    color: maroon;
     text-shadow: 3px 4px 6px rgb(97, 97, 97), 0 0 0 #000, 1px 4px 6px rgb(97, 97, 97);
     text-indent: 42px;
     line-height: 1.2;
@@ -240,7 +240,7 @@ body {
 
 .line {
     /* color: #808080; */
-    height: 5px;
+    height: 10px;
     background-color: grey;
     position: absolute;
     transform-origin: center left;
@@ -913,7 +913,7 @@ body {
 }
 
 .link-span {
-    line-height: 2em;
+    line-height: 2.6em;
     white-space: nowrap;
     color: red;
     position: absolute;
