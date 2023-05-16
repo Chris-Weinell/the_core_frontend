@@ -240,7 +240,7 @@ body {
 
 .line {
     /* color: #808080; */
-    height: 5px;
+    height: 10px;
     background-color: grey;
     position: absolute;
     transform-origin: center left;
@@ -913,7 +913,7 @@ body {
 }
 
 .link-span {
-    line-height: 2em;
+    line-height: 2.6em;
     white-space: nowrap;
     color: red;
     position: absolute;
